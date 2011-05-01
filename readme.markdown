@@ -9,15 +9,13 @@ Installation
 
 You can get the binary and its dependencies from Clojars, see [http://clojars.org/vhector](http://clojars.org/vhector)
 
-To use Vhector with Leiningen, just add 
-    [vhector "0.1.0-SNAPSHOT"]
-to your project.clj and run
-    $lein deps
+To use Vhector with Leiningen, just add [vhector "0.1.0-SNAPSHOT"] to your project.clj.
 
 Overview
 --------
 
-Vhector offers almost the full power of hector with a very simple API of 4 idiomatic functions: 
+Vhector offers almost the full power of hector with a very simple API of 4 idiomatic functions:
+
 * connect!
 * insert! 
 * select 
@@ -68,6 +66,7 @@ Selecting many records at once
 ------------------------------
 
 The arguments of select! can use different forms to target many records at once.
+
 * string: one key or one column
 * vector: list of keys/columns
 * map: range of keys/columns with support for unlimited end. 
@@ -80,11 +79,11 @@ The returned value is adjusted to the depth of variable arguments.
 
 ### Examples
 
-  (select "Standard1" "Rigel" [:distance :mass]) ; one row, list of columns
-  ;=> {:mass 17, :distance 772.51}
+    (select "Standard1" "Rigel" [:distance :mass]) ; one row, list of columns
+    ;=> {:mass 17, :distance 772.51}
 
-  (select "Standard1" ["Rigel" "Aldebaran"] {}) ; list of rows, all columns
-  ;=> {"Rigel" {:radius 78, :mass 17, :distance 772.51, :constellation "Orion"}, "Aldebaran" {:distance 65, :constellation "Taurus"}}
+    (select "Standard1" ["Rigel" "Aldebaran"] {}) ; list of rows, all columns
+    ;=> {"Rigel" {:radius 78, :mass 17, :distance 772.51, :constellation "Orion"}, "Aldebaran" {:distance 65, :constellation "Taurus"}}
 
 ### Limits
 
