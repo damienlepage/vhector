@@ -69,10 +69,10 @@ The arguments of select! can use different forms to target many records at once.
 
 * string: one key or one column
 * vector: list of keys/columns
-* map: range of keys/columns with support for unlimited end. 
-  {:start :stop} => all keys/columns between :start and :stop (inclusive)
-  {:start nil} => all keys/columns from :start to the end
-  {nil :stop} => all keys/columns from the beginning to :stop
+* map: range of keys/columns with support for unlimited end.  
+  {:start :stop} => all keys/columns between :start and :stop (inclusive)  
+  {:start nil} => all keys/columns from :start to the end  
+  {nil :stop} => all keys/columns from the beginning to :stop  
   {} or {nil nil} => all keys/columns
 
 The returned value is adjusted to the depth of variable arguments.
