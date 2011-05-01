@@ -115,7 +115,7 @@
   {:mass 17, :distance 772.51}
   =>(select \"Standard1\" \"Rigel\" {:constellation :mass}) ; one row, range of columns
   {:mass 17, :distance 772.51, :constellation \"Orion\"}
-  =>(select \"Standard1\" {} {} 5 1) ; all keys and columns with limits of 3 rows and 1 col
+  =>(select \"Standard1\" {} {} 3 1) ; all keys and columns with limits of 3 rows and 1 col
   {\"Rigel\" {:constellation \"Orion\"}, \"Mu Cephei\" {:constellation \"Cepheus\"}, \"Aldebaran\" {:constellation \"Taurus\"}}
   =>(select \"Standard1\" [\"Rigel\" \"Aldebaran\"] {}) ; list of rows, all columns
   {\"Rigel\" {:radius 78, :mass 17, :distance 772.51, :constellation \"Orion\"}, \"Aldebaran\" {:distance 65, :constellation \"Taurus\"}}
