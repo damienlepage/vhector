@@ -100,6 +100,20 @@
           (select "Standard1" ["Aldebaran" "Mu Cephei"] {:constellation :distance}))))
 
   (testing 
+    "Select list of keys, range of cols in reverse order"
+    (is (= 
+          {"Mu Cephei" {:constellation "Cepheus"}
+           "Aldebaran" {:constellation "Taurus", :distance 65}}
+          (select "Standard1" ["Aldebaran" "Mu Cephei"] {:distance :constellation}))))
+
+  (testing 
+    "Select list of keys, all cols in reverse order"
+    (is (= 
+          {"Mu Cephei" {:constellation "Cepheus", :radius 1650}
+           "Aldebaran" {:constellation "Taurus", :distance 65}}
+          (select "Standard1" ["Aldebaran" "Mu Cephei"] {:TO-LAST :FROM-FIRST}))))
+
+  (testing 
     "Select list of keys, range of cols with limit"
     (is (= 
           {"Mu Cephei" {:constellation "Cepheus"}
@@ -246,6 +260,11 @@
       "Select list of keys, 1 super, range of cols"
       (is (= {"Saturn" {"Tethys" {:radius 533, :semi-major-axis 294619}}, "Earth" {"Tethys" {}}}
              (select "Super1" ["Earth" "Saturn"] "Tethys" {:aaa :sss}))))
+
+    (testing 
+      "Select list of keys, 1 super, range of cols in reverse order"
+      (is (= {"Saturn" {"Tethys" {:semi-major-axis 294619, :radius 533}}, "Earth" {"Tethys" {}}}
+             (select "Super1" ["Earth" "Saturn"] "Tethys" {:sss :aaa}))))
 
     (testing 
       "Select list of keys, list of super"

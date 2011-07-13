@@ -98,9 +98,13 @@
   map: range of keys/columns with support for unlimited end. 
     E.g.
     {:start :stop} => all keys/columns between :start and :stop (inclusive)
-    {:start nil} => all keys/columns from :start to the end
-    {nil :stop} => all keys/columns from the beginning to :stop
-    {} or {nil nil} => all keys/columns
+    {:stop :start} => all keys/columns between :start and :stop in reverse order
+    {:start nil} or {:start :TO-LAST} => all keys/columns from :start to the end
+    {nil :stop} or {:FROM-FIRST :stop} => all keys/columns from the beginning to :stop
+    {:stop :FROM-FIRST} => all keys/columns from the beginning to :stop in reverse order
+    {} or {nil nil} or {:FROM-FIRST :TO-LAST} => all keys/columns
+
+  :FROM-FIRST and :TO-LAST are special keywords introduced in order to disambiguate the reverse order
 
   NOTE: range of keys shouldn't be used if Cassandra is configured with the default RandomPartitioner.
   They become useful only with the OrderPreservingPartitioner.

@@ -12,7 +12,7 @@
 
 (defn encode [data]
   (cond
-    (nil? data) nil
+    (or (nil? data) (= :FROM-FIRST data) (= :TO-LAST data)) nil
     (coll? data) (map encode data)
     :default (pr-str data)))
 
@@ -87,12 +87,23 @@
   [query crit]
   (doto query (.setSuperColumn (encode crit))))
 
+(defn is-reversed
+  [start stop raw-stop]
+  (if (= :FROM-FIRST raw-stop)
+    true
+    (if-let [real-stop stop]
+      (pos? (compare start real-stop))
+      false))) ; consider that nil as stop means normal order 
+
 (defn apply-range 
   [query crit max-res]
   (if (map? crit)
     (let [crit-start (first (keys crit))
-          crit-stop (get crit crit-start)]
-      (doto query (.setRange (encode crit-start) (encode crit-stop) false max-res)))
+          crit-stop (get crit crit-start)
+          encoded-start (encode crit-start)
+          encoded-stop (encode crit-stop)
+          reversed  (is-reversed encoded-start encoded-stop crit-stop)]
+      (doto query (.setRange encoded-start encoded-stop reversed max-res)))
     (set-column-names query crit)))
 
 (defn execute-query
