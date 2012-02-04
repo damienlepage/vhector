@@ -4,12 +4,18 @@ Vhector
 Vhector is a Clojure wrapper for [Hector](https://github.com/rantav/hector), 
 high level client for [Apache Cassandra](http://cassandra.apache.org/).
 
+Releases
+------------
+
+0.2.0 : Upgrade to Clojure 1.3, Hector 1.0-2 tested with Cassandra 1.0.7  
+0.1.0 : Initial version with Clojure 1.2, Hector 0.7, tested with Cassandra 0.7
+
 Installation
 ------------
 
 You can get the binary and its dependencies from Clojars, see [http://clojars.org/vhector](http://clojars.org/vhector)
 
-To use Vhector with Leiningen, just add [vhector "0.1.0-SNAPSHOT"] to your project.clj.
+To use Vhector with Leiningen, just add [vhector "0.2.0"] to your project.clj.
 
 Overview
 --------

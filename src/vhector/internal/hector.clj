@@ -32,7 +32,7 @@
     (HFactory/createKeyspace ks cluster)))
 
 (defn init [cluster-name host port ks]
-  (def *keyspace* (create-keyspace cluster-name host port ks)))
+  (def ^:dynamic *keyspace* (create-keyspace cluster-name host port ks)))
 
 (defn convert-slice [slice]
   (let [cols (.getColumns slice)
@@ -199,7 +199,7 @@
     (if-not (vector? cols)
       (add-deletion mutator cf k super [cols])
       (doseq [col-name cols] 
-        (let [stringcol (HFactory/createColumn (encode col-name) 0 se se) ; value is not used but must not be null
+        (let [stringcol (HFactory/createColumn (encode col-name) "" se se) ; value is not used but must not be null
               super-col (HFactory/createSuperColumn (encode super) [stringcol] se se se)]
           (.addSubDelete mutator (encode k) cf super-col))))))
 
