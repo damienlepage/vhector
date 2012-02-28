@@ -1,7 +1,7 @@
 (ns vhector.internal.dispatch
   (:use
     [vhector.internal.util :only [single?]]
-    [vhector.internal.hector :only [read-rows, read-range-rows, read-row-super, read-rows-super, read-range-rows-super]]))
+    [vhector.internal.hector :only [read-rows, read-range-rows, read-row-super, read-rows-super, read-range-rows-super, cql]]))
 
 (defn super-dispatcher [& args]
   (let [ks (second args), sups (nth args 2), cols (last args)
@@ -13,11 +13,15 @@
       many-sups :many-sups
       :default :super-one-row)))
 
+(defn cql? [args]
+  (some #(and (keyword? %) (-> % str (.startsWith ":WHERE"))) args))
+
 (defn dispatcher [& args]
   (let [rows (last (butlast args))
         range-rows (map? rows)
         super (= (count args) 4)]
     (cond 
+      (cql? args) :cql
       (number? (last args)) (apply dispatcher (butlast args)) ; ignore size args at the end for dispatching
       super (apply super-dispatcher args)
       range-rows :range-keys)))
@@ -30,6 +34,10 @@
 (defmethod dispatch-select :default
   [cf ks cols & more]
   (apply read-rows cf (ensure-many ks) (ensure-many cols) more))
+
+(defmethod dispatch-select :cql
+  [cf cols & cql-args]
+  (apply cql cf (ensure-many cols) cql-args))
 
 (defmethod dispatch-select :range-keys
   [& args]
