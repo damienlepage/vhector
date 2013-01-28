@@ -11,7 +11,7 @@ use Keyspace1;
 create column family Stars with column_type = 'Standard' and comparator = 'UTF8Type';
 create column family Planets with column_type = 'Standard' and comparator = 'UTF8Type';
 create column family Moons with column_type = 'Super' and comparator = 'UTF8Type' and subcomparator = 'UTF8Type';
-create column family Comets with column_type = 'Super' and subcomparator = 'UTF8Type' and rows_cached = 10000;
+create column family Comets with column_type = 'Super' and comparator = 'UTF8Type' and subcomparator = 'UTF8Type';
 
 -- secondary indexes
 update column family Stars with column_metadata=[

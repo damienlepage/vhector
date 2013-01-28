@@ -138,25 +138,25 @@
   (testing 
     "Select range of keys, all cols"
     (is (= 
-          {"Rigel" {:radius 78.0, :mass 17.0, :distance 772, :constellation "Orion"}
-           "Mu Cephei" {:radius 1650.0, :constellation "Cepheus"}
+          {"Mu Cephei" {:radius 1650.0, :constellation "Cepheus"}
+           "Betelgeuse" {:constellation "Orion", :distance 643}
            "Aldebaran" {:distance 65, :constellation "Taurus"}}
-          (select "Stars" {"Aldebaran" "Rigel"} {}))))
+          (select "Stars" {"Aldebaran" "Mu Cephei"} {}))))
 
   (testing 
     "Select range of keys, all cols with limits"
     (is (= 
-          {"Mu Cephei" {:constellation "Cepheus"}
+          {"Betelgeuse" {:constellation "Orion"}
            "Aldebaran" {:constellation "Taurus"}}
-          (select "Stars" {"Aldebaran" "Rigel"} {} 2 1))))
+          (select "Stars" {"Aldebaran" "Mu Cephei"} {} 2 1))))
 
   (testing 
     "Select range of keys, one col"
     (is (=
           {"Rigel" {:radius 78.0}
            "Mu Cephei" {:radius 1650.0}
-           "Aldebaran" {}}
-          (select "Stars" {"Aldebaran" "Rigel"} :radius))))
+           "Betelgeuse" {}}
+          (select "Stars" {"Betelgeuse" "Rigel"} :radius))))
 
   
   (testing 
@@ -164,6 +164,7 @@
     (is (=
           {"Rigel" {:radius 78.0, :distance 772}
            "Mu Cephei" {:radius 1650.0}
+           "Betelgeuse" {:distance 643}
            "Aldebaran" {:distance 65}}
           (select "Stars" {"Aldebaran" "Rigel"} [:radius :distance]))))
 
@@ -172,6 +173,7 @@
     (is (= 
           {"Rigel" {:distance 772, :constellation "Orion"}
            "Mu Cephei" {:constellation "Cepheus"}
+           "Betelgeuse" {:constellation "Orion", :distance 643}
            "Aldebaran" {:distance 65, :constellation "Taurus"}}
           (select "Stars" {"Aldebaran" "Rigel"} {:aaa :distance}))))
   
